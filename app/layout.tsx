@@ -1,14 +1,14 @@
 // app/layout.tsx
 import type { Metadata } from "next";
-import { Archivo } from "next/font/google";
+import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 
-// Load Archivo font from Google Fonts
-const archivo = Archivo({
+// Load Inter font from Google Fonts
+const inter = Inter({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"], // choose any weights you want
-  variable: "--font-archivo",
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -23,8 +23,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* Apply Archivo font to entire website */}
-      <body className={`${archivo.variable} antialiased`}>
+      {/* Apply Inter font to entire website */}
+      <body className={`${inter.variable} antialiased`}>
         <Navbar />
         {children}
       </body>

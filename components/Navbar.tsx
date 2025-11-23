@@ -39,7 +39,7 @@ export default function Navbar() {
         <Link href="/" className="flex items-center">
           <Image
             src="/logo1.png"
-            alt="Synergy Spine Chiropractic"
+            alt="NeoTek Designs"
             width={250}
             height={100}
             className={`
@@ -58,7 +58,7 @@ export default function Navbar() {
             <Link
               href="/about"
               className="
-                inline-block                 /* give it a box so scale works */
+                inline-block
                 transition-transform
                 duration-200
                 hover:text-red-500
@@ -68,29 +68,62 @@ export default function Navbar() {
               ABOUT
             </Link>
 
-            {/* RED DROPDOWN */}
+            {/* DROPDOWN */}
             <div
-              // The mt-0 changes the distance between the submenu and touching parent menu
               className="
                 invisible opacity-0
                 group-hover:visible group-hover:opacity-100
                 transition-opacity duration-200
-                absolute left-0 mt-0 
-                bg-white-600 text-white font-semibold
+                absolute left-0 mt-0
+                bg-zinc-900/90
                 shadow-lg w-56 py-2
+                rounded-md
               "
             >
+              {/* ITEM 1 */}
               <Link
                 href="/about/test-1"
-                className="block px-4 py-3 hover:bg-red-700"
+                className="
+                  group/item
+                  relative block px-4 py-3
+                  overflow-hidden text-white font-medium
+                "
               >
-                TEST 1
+                {/* sliding background */}
+                <span
+                  className="
+                    absolute inset-0 bg-red-600
+                    translate-x-[-100%]
+                    group-hover/item:translate-x-0
+                    transition-transform duration-300
+                  "
+                />
+                {/* text */}
+                <span className="relative z-10 group-hover/item:scale-105 transition-transform duration-300">
+                  TEST 1
+                </span>
               </Link>
+
+              {/* ITEM 2 */}
               <Link
                 href="/about/test-2"
-                className="block px-4 py-3 hover:bg-red-700"
+                className="
+                  group/item
+                  relative block px-4 py-3
+                  overflow-hidden text-white font-medium
+                "
               >
-                TEST 2
+                <span
+                  className="
+                    absolute inset-0 bg-red-600
+                    translate-x-[-100%]
+                    group-hover/item:translate-x-0
+                    transition-transform duration-300
+                  "
+                />
+                <span className="relative z-10 group-hover/item:scale-105 transition-transform duration-300">
+                  TEST 2
+                </span>
               </Link>
             </div>
           </div>
