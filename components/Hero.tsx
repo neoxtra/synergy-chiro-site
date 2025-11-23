@@ -5,13 +5,29 @@ export default function Hero() {
     <>
       {/* FULLSCREEN HERO IMAGE */}
       <section className="relative w-full h-screen">
+        {/* Background image */}
         <Image
-          src="/hero_bg.png"
+          src="/bg.png"
           alt="Hero Image"
           fill
           priority
           className="object-cover"
         />
+
+        {/* TEXT OVERLAY */}
+        <div className="absolute inset-0 flex flex-col justify-center items-center text-white text-center px-6">
+          <h1 className="text-5xl font-bold drop-shadow-lg">
+            Transforming Ideas Into Digital Reality
+          </h1>
+
+          <p className="text-xl mt-4 max-w-2xl drop-shadow-lg">
+            High-performance web design, branding, and automation for modern businesses.
+          </p>
+
+          <button className="mt-8 bg-green-700 hover:bg-green-800 px-8 py-3 rounded-lg text-lg font-semibold shadow-lg transition">
+            Get Started
+          </button>
+        </div>
       </section>
 
       {/* SECTION BELOW HERO */}

@@ -12,7 +12,7 @@ const archivo = Archivo({
 });
 
 export const metadata: Metadata = {
-  title: "Synergy Spine Chiropractic AI Assistant",
+  title: "NeoTek AI Assistant",
   description: "Website with integrated AI front desk assistant.",
 };
 
