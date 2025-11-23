@@ -1,4 +1,3 @@
-// app/page.tsx
 import Hero from "@/components/Hero";
 import FloatingChatbot from "@/components/FloatingChatbot";
 
@@ -9,12 +8,14 @@ export default function Home() {
       <Hero />
 
       {/* Floating AI Assistant */}
+      
       <FloatingChatbot
-        botName="Synergy Assistant"
-        welcomeMessage="Hi! I’m the Synergy front desk assistant. How can I help you today?"
-        accentColor="#0D8642"
+        botName="NeoTek Site Navigator"
+        welcomeMessage="Hi! I’m the integrated AI assistant here to showcase the full capabilities of NeoTek Design Studios."
+        accentColor="#197e04ff"
         position="bottom-right"
       />
+      
     </div>
   );
 }

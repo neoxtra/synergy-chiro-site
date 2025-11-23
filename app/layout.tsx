@@ -1,17 +1,14 @@
 // app/layout.tsx
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Archivo } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Load Archivo font from Google Fonts
+const archivo = Archivo({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"], // choose any weights you want
+  variable: "--font-archivo",
 });
 
 export const metadata: Metadata = {
@@ -26,7 +23,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      {/* Apply Archivo font to entire website */}
+      <body className={`${archivo.variable} antialiased`}>
         <Navbar />
         {children}
       </body>

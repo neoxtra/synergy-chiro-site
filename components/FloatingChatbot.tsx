@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, type KeyboardEvent } from "react";
 
 type Message = {
   from: "user" | "bot";
@@ -15,9 +15,9 @@ type FloatingChatbotProps = {
 };
 
 export default function FloatingChatbot({
-  botName = "Synergy Assistant",
+  botName = "NeoTek Designs AI Navigator",
   welcomeMessage = "Hi! How can I help you today?",
-  accentColor = "#0D8642",
+  accentColor = "#145a33ff",
   position = "bottom-right",
 }: FloatingChatbotProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +33,7 @@ export default function FloatingChatbot({
       ? { right: "20px", bottom: "20px" }
       : { left: "20px", bottom: "20px" };
 
-  // Scroll to bottom when messages change
+  // Scroll to bottom when messages change or when opened
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isOpen]);
@@ -68,17 +68,17 @@ export default function FloatingChatbot({
       const reply = await sendMessageToApi(userText);
       setMessages((prev) => [...prev, { from: "bot", text: reply }]);
     } catch (err: any) {
+      console.error(err);
       setMessages((prev) => [
         ...prev,
         { from: "bot", text: "Sorry, something went wrong. Please try again." },
       ]);
-      console.error(err);
     } finally {
       setLoading(false);
     }
   }
 
-  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+  function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") {
       e.preventDefault();
       handleSend();
@@ -93,7 +93,7 @@ export default function FloatingChatbot({
         ...containerPositionStyle,
       }}
     >
-      {/* Floating bubble button */}
+      {/* Floating bubble button (only when closed) */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
@@ -110,16 +110,34 @@ export default function FloatingChatbot({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontWeight: 600,
-            fontSize: 14,
+            padding: 0,
           }}
           aria-label="Open chat"
         >
-          Chat
+          {/* Chat bubble icon */}
+          <svg
+            width="26"
+            height="26"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              d="M5 5.5C5 4.67157 5.67157 4 6.5 4H17.5C18.3284 4 19 4.67157 19 5.5V12.5C19 13.3284 18.3284 14 17.5 14H10L7 17V14H6.5C5.67157 14 5 13.3284 5 12.5V5.5Z"
+              stroke="white"
+              strokeWidth="1.7"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <circle cx="9" cy="9" r="0.9" fill="white" />
+            <circle cx="12" cy="9" r="0.9" fill="white" />
+            <circle cx="15" cy="9" r="0.9" fill="white" />
+          </svg>
         </button>
       )}
 
-      {/* Chat window */}
+      {/* Chat window (only when open) */}
       {isOpen && (
         <div
           style={{
@@ -132,7 +150,8 @@ export default function FloatingChatbot({
             display: "flex",
             flexDirection: "column",
             overflow: "hidden",
-            fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+            fontFamily:
+              "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
           }}
         >
           {/* Header */}
@@ -266,7 +285,8 @@ export default function FloatingChatbot({
                 padding: "8px 12px",
                 borderRadius: 999,
                 border: "none",
-                backgroundColor: loading || !input.trim() ? "#9ca3af" : accentColor,
+                backgroundColor:
+                  loading || !input.trim() ? "#9ca3af" : accentColor,
                 color: "white",
                 cursor:
                   loading || !input.trim() ? "not-allowed" : "pointer",
