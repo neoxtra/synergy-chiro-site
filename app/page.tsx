@@ -2,6 +2,7 @@ import Hero from "@/components/Hero";
 import FloatingChatbot from "@/components/FloatingChatbot";
 import CursorSpotlight from "@/components/CursorSpotlight";
 import Summary1 from "@/components/Summary1";
+import Summary2 from "@/components/Summary2";
 
 export default function Home() {
   return (
@@ -16,6 +17,8 @@ export default function Home() {
 
         {/* SUMMARY SECTION (white background, two columns) */}
         <Summary1 />
+
+        <Summary2 />
 
         {/* FLOATING CHATBOT */}
         <FloatingChatbot

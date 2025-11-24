@@ -22,7 +22,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // close mobile menu when resizing to desktop
   useEffect(() => {
     const onResize = () => {
       if (window.innerWidth >= 768) setMobileOpen(false);
@@ -39,29 +38,25 @@ export default function Navbar() {
         transition-all duration-300
         ${
           scrolled
-            ? "bg-zinc-900/70 backdrop-blur-md shadow-lg h-20"
-            : "bg-transparent h-24"
+            ? "bg-zinc-900/70 backdrop-blur-md shadow-lg h-33"
+            : "bg-transparent h-40"
         }
       `}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-8 h-full flex items-center justify-between">
-        {/* LOGO (left on all sizes) */}
+      <div className="max-w-7xl mx-auto px-6 md:px-8 py-4 h-full flex items-center justify-between">
+        {/* LOGO */}
         <Link href="/" className="flex items-center">
           <Image
             src="/logo1.png"
             alt="NeoTek Designs"
             width={250}
             height={100}
-            className={`
-            object-contain
-            transition-all duration-300 ease-in-out
-
-            w-[120px]          /* mobile */
-
-            md:w-[250px]       /* desktop */
-            md:scrolled:w-[190px]
-          `}
-
+            className="
+              object-contain
+              transition-all duration-300 ease-in-out
+              w-[150px]          /* mobile */
+              md:w-[250px]       /* desktop */
+            "
             priority
           />
         </Link>
@@ -97,37 +92,29 @@ export default function Navbar() {
             >
               <Link
                 href="/about/test-1"
-                className="
-                  group/item
-                  relative block px-4 py-3
-                  overflow-hidden text-white font-medium
-                "
+                className="group/item relative block px-4 py-3 overflow-hidden text-white font-medium"
               >
                 <span
                   className="
                     absolute inset-0 bg-red-600
-                    translate-x-[-100%]
+                    -translate-x-full
                     group-hover/item:translate-x-0
                     transition-transform duration-300
                   "
                 />
                 <span className="relative z-10 group-hover/item:scale-105 transition-transform duration-300">
-                  Methodology
+                  Approach
                 </span>
               </Link>
 
               <Link
                 href="/about/test-2"
-                className="
-                  group/item
-                  relative block px-4 py-3
-                  overflow-hidden text-white font-medium
-                "
+                className="group/item relative block px-4 py-3 overflow-hidden text-white font-medium"
               >
                 <span
                   className="
                     absolute inset-0 bg-red-600
-                    translate-x-[-100%]
+                    -translate-x-full
                     group-hover/item:translate-x-0
                     transition-transform duration-300
                   "
@@ -161,16 +148,12 @@ export default function Navbar() {
             >
               <Link
                 href="/services/website-design"
-                className="
-                  group/item
-                  relative block px-4 py-3
-                  overflow-hidden text-white font-medium
-                "
+                className="group/item relative block px-4 py-3 overflow-hidden text-white font-medium"
               >
                 <span
                   className="
                     absolute inset-0 bg-red-600
-                    translate-x-[-100%]
+                    -translate-x-full
                     group-hover/item:translate-x-0
                     transition-transform duration-300
                   "
@@ -182,16 +165,12 @@ export default function Navbar() {
 
               <Link
                 href="/services/SEO"
-                className="
-                  group/item
-                  relative block px-4 py-3
-                  overflow-hidden text-white font-medium
-                "
+                className="group/item relative block px-4 py-3 overflow-hidden text-white font-medium"
               >
                 <span
                   className="
                     absolute inset-0 bg-red-600
-                    translate-x-[-100%]
+                    -translate-x-full
                     group-hover/item:translate-x-0
                     transition-transform duration-300
                   "
@@ -225,14 +204,13 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* MOBILE HAMBURGER (right side) */}
+        {/* MOBILE HAMBURGER */}
         <button
           type="button"
           className="md:hidden inline-flex items-center justify-center p-2 rounded-full text-white hover:bg-zinc-800 transition"
           aria-label="Toggle navigation"
           onClick={() => setMobileOpen((prev) => !prev)}
         >
-          {/* simple hamburger icon / X icon */}
           <span className="sr-only">Open main menu</span>
           <div className="space-y-1">
             <span
@@ -254,7 +232,7 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* MOBILE MENU DROPDOWN */}
+      {/* MOBILE MENU */}
       {mobileOpen && (
         <div className="md:hidden bg-zinc-900/95 border-t border-zinc-800">
           <div className="max-w-7xl mx-auto px-6 pt-4 pb-6 space-y-3 text-white text-base">
@@ -289,6 +267,7 @@ export default function Navbar() {
             >
               SERVICES
             </Link>
+
             <div className="pl-3 space-y-1 text-sm text-zinc-300">
               <Link
                 href="/services/website-design"

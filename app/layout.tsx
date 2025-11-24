@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 // Load Inter font
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased bg-[#020617]`}>
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

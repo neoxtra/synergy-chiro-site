@@ -19,22 +19,30 @@ export default function Summary1() {
             </h2>
 
             <p className="text-base md:text-lg text-slate-800 leading-relaxed">
-              We are a full-service digital and social marketing studio
-              specializing in custom websites, SEO, and content that
-              converts. We focus on customizable design, fast performance, and
+              We are a full-service design studio
+              specializing in custom websites, SEO, and marketing content that
+              converts. We focus on <span className="font-bold"> customizable </span> design, performance, and
               clear communication.
 
               <br />
               <br />
 
-              No shortcuts, no recycled layouts, no templates. We tailor to your brand, built by a team that knows what they’re doing.
+              No shortcuts, no recycled layouts, no cookie-cutter garbage. We tailor to your brand, built by a team that knows what they’re doing.
             </p>
           </div>
 
+
+          
           {/* RIGHT COLUMN – LONGER COPY + BUTTON */}
           <div className="flex flex-col justify-between gap-8">
             <p className="text-base md:text-lg text-slate-700 leading-relaxed">
-              Our team is made up of developers, artists, and creators.
+              <br />
+              <br />
+              
+              
+              
+              
+              Our team is made up of engineers, artists, and developers.
               We believe that{" "}
               <span className="font-semibold">
                 clarity, consistency, and performance
@@ -65,7 +73,7 @@ export default function Summary1() {
                   duration-200
                 "
               >
-                Learn About Our Options
+                Learn More
               </button>
             </div>
           </div>
