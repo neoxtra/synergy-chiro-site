@@ -100,7 +100,7 @@ export default function Navbar() {
                 />
                 {/* text */}
                 <span className="relative z-10 group-hover/item:scale-105 transition-transform duration-300">
-                  TEST 1
+                  Methodolgy
                 </span>
               </Link>
 
@@ -122,30 +122,95 @@ export default function Navbar() {
                   "
                 />
                 <span className="relative z-10 group-hover/item:scale-105 transition-transform duration-300">
-                  TEST 2
+                  Testimonials
                 </span>
               </Link>
             </div>
           </div>
 
+          {/* SERVICES + SUBMENU */}
+          <div className="relative group">
+            <Link
+              href="/services"
+              className="transform transition-all duration-200 hover:text-red-500 hover:scale-110"
+            >
+              SERVICES
+            </Link>
+
+            {/* DROPDOWN */}
+            <div
+              className="
+                invisible opacity-0
+                group-hover:visible group-hover:opacity-100
+                transition-opacity duration-200
+                absolute left-0 mt-0
+                bg-zinc-900/90
+                shadow-lg w-56 py-2
+                rounded-md
+              "
+            >
+              {/* ITEM 1 */}
+              <Link
+                href="/services/website-design"
+                className="
+                  group/item
+                  relative block px-4 py-3
+                  overflow-hidden text-white font-medium
+                "
+              >
+                <span
+                  className="
+                    absolute inset-0 bg-red-600
+                    translate-x-[-100%]
+                    group-hover/item:translate-x-0
+                    transition-transform duration-300
+                  "
+                />
+                <span className="relative z-10 group-hover/item:scale-105 transition-transform duration-300">
+                  Website Design
+                </span>
+              </Link>
+
+              {/* ITEM 2 */}
+              <Link
+                href="/services/SEO"
+                className="
+                  group/item
+                  relative block px-4 py-3
+                  overflow-hidden text-white font-medium
+                "
+              >
+                <span
+                  className="
+                    absolute inset-0 bg-red-600
+                    translate-x-[-100%]
+                    group-hover/item:translate-x-0
+                    transition-transform duration-300
+                  "
+                />
+                <span className="relative z-10 group-hover/item:scale-105 transition-transform duration-300">
+                  SEO
+                </span>
+              </Link>
+            </div>
+          </div>
+
+          
           <Link
-            href="/services"
-            className="transform transition-all duration-200 hover:text-red-500 hover:scale-110"
-          >
-            SERVICES
-          </Link>
-          <Link
-            href="/portfolio"
+            href="/Portfolio"
             className="transform transition-all duration-200 hover:text-red-500 hover:scale-110"
           >
             PORTFOLIO
           </Link>
+
           <Link
             href="/contact"
             className="transform transition-all duration-200 hover:text-red-500 hover:scale-110"
           >
             CONTACT
           </Link>
+
+
           <Link
             href="/resources"
             className="transform transition-all duration-200 hover:text-red-500 hover:scale-110"

@@ -3,38 +3,45 @@
 import { useEffect, useRef } from "react";
 
 export default function CursorSpotlight() {
-  const spotRef = useRef<HTMLDivElement | null>(null);
+  const spotlightRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const el = spotRef.current;
-    if (!el) return;
+    const spotlight = spotlightRef.current;
+    if (!spotlight) return;
 
-    const SIZE = 700;
+    const SIZE = 20000; // diameter of the glow circle
 
-    const move = (e: PointerEvent) => {
+    const handleMove = (e: PointerEvent) => {
       const x = e.clientX - SIZE / 2;
       const y = e.clientY - SIZE / 2;
-      el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+
+      spotlight.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     };
 
-    window.addEventListener("pointermove", move);
-    return () => window.removeEventListener("pointermove", move);
+    window.addEventListener("pointermove", handleMove);
+    return () => window.removeEventListener("pointermove", handleMove);
   }, []);
 
   return (
-    <div
-      ref={spotRef}
-      className="
-        pointer-events-none
-        fixed
-        top-0 left-0
-        w-[700px] h-[700px]
-        rounded-full
-        -z-10
-        blur-3xl
-        opacity-60
-        bg-[radial-gradient(circle,_rgba(56,189,248,0.9)_0%,_transparent_70%)]
-      "
-    />
+    <>
+      {/* Base dark blue-ish background */}
+      <div className="pointer-events-none fixed inset-0 -z-20 bg-[#020617]" />
+
+      {/* Cursor-following glow */}
+      <div
+        ref={spotlightRef}
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          fixed
+          -z-10
+          w-[600px] h-[600px]
+          rounded-full
+          blur-3xl
+          mix-blend-screen
+          bg-[radial-gradient(circle_at_center,_rgba(59,130,246,0.8),_transparent_60%)]
+        "
+      />
+    </>
   );
 }

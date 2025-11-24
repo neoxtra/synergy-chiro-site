@@ -30,10 +30,9 @@ export default function FloatingChatbot({
 
   const containerPositionStyle =
     position === "bottom-right"
-      ? { right: "0px", bottom: "0px" }
+      ? { right: "20px", bottom: "20px" }
       : { left: "20px", bottom: "20px" };
 
-  // Scroll to bottom when messages change or when opened
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isOpen]);
@@ -90,228 +89,238 @@ export default function FloatingChatbot({
         position: "fixed",
         zIndex: 9999,
         ...containerPositionStyle,
+        pointerEvents: "none", // wrapper ignores clicks
       }}
     >
-      {/* Floating bubble button (only when closed) */}
-      {!isOpen && (
-        <button
-          onClick={() => setIsOpen(true)}
-          style={{
-            width: 56,
-            height: 56,
-            borderRadius: "999px",
-            border: "none",
-            backgroundColor: accentColor,
-            color: "white",
-            cursor: "pointer",
-            boxShadow:
-              "0 10px 20px rgba(0,0,0,0.18), 0 6px 6px rgba(0,0,0,0.22)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: 0,
-            transition: "transform 160ms ease-out, box-shadow 160ms ease-out",
-          }}
-          aria-label="Open chat"
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.transform =
-              "translateY(-2px) scale(1.03)";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.transform =
-              "translateY(0) scale(1)";
-          }}
-        >
-          {/* Chat bubble icon */}
-          <svg
-            width="26"
-            height="26"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <path
-              d="M5 5.5C5 4.67157 5.67157 4 6.5 4H17.5C18.3284 4 19 4.67157 19 5.5V12.5C19 13.3284 18.3284 14 17.5 14H10L7 17V14H6.5C5.67157 14 5 13.3284 5 12.5V5.5Z"
-              stroke="white"
-              strokeWidth="1.7"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <circle cx="9" cy="9" r="0.9" fill="white" />
-            <circle cx="12" cy="9" r="0.9" fill="white" />
-            <circle cx="15" cy="9" r="0.9" fill="white" />
-          </svg>
-        </button>
-      )}
-
-      {/* Chat window (always mounted, animated open/close) */}
       <div
         style={{
-          width: 340,
-          height: 420,
-          backgroundColor: "white",
-          borderRadius: 16,
-          boxShadow:
-            "0 10px 25px rgba(0,0,0,0.2), 0 8px 10px rgba(0,0,0,0.15)",
-          display: "flex",
-          flexDirection: "column",
-          overflow: "hidden",
-          fontFamily:
-            "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
-
-          // bubble animation
-          transformOrigin: "bottom right",
-          transform: isOpen ? "scale(1)" : "scale(0.8)",
-          opacity: isOpen ? 1 : 0,
-          pointerEvents: isOpen ? "auto" : "none",
-          transition:
-            "transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 160ms ease-out",
+          position: "relative",
+          pointerEvents: "auto", // actual content is clickable
         }}
       >
-        {/* Header */}
-        <div
-          style={{
-            backgroundColor: accentColor,
-            color: "white",
-            padding: "10px 12px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <span style={{ fontSize: 14, fontWeight: 600 }}>{botName}</span>
-            <span style={{ fontSize: 11, opacity: 0.9 }}>
-              Online · Site Navigator Assistant
-            </span>
-          </div>
+        {/* Floating bubble button (only when closed) */}
+        {!isOpen && (
           <button
-            onClick={() => setIsOpen(false)}
+            onClick={() => setIsOpen(true)}
             style={{
-              background: "transparent",
+              width: 56,
+              height: 56,
+              borderRadius: "999px",
               border: "none",
+              backgroundColor: accentColor,
               color: "white",
-              fontSize: 18,
               cursor: "pointer",
-              lineHeight: 1,
+              boxShadow:
+                "0 10px 20px rgba(0,0,0,0.18), 0 6px 6px rgba(0,0,0,0.22)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: 0,
+              transition: "transform 160ms ease-out, box-shadow 160ms ease-out",
             }}
-            aria-label="Close chat"
+            aria-label="Open chat"
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.transform =
+                "translateY(-2px) scale(1.03)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.transform =
+                "translateY(0) scale(1)";
+            }}
           >
-            ×
+            {/* Chat bubble icon */}
+            <svg
+              width="26"
+              height="26"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M5 5.5C5 4.67157 5.67157 4 6.5 4H17.5C18.3284 4 19 4.67157 19 5.5V12.5C19 13.3284 18.3284 14 17.5 14H10L7 17V14H6.5C5.67157 14 5 13.3284 5 12.5V5.5Z"
+                stroke="white"
+                strokeWidth="1.7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <circle cx="9" cy="9" r="0.9" fill="white" />
+              <circle cx="12" cy="9" r="0.9" fill="white" />
+              <circle cx="15" cy="9" r="0.9" fill="white" />
+            </svg>
           </button>
-        </div>
+        )}
 
-        {/* Messages */}
+        {/* Chat window (absolutely positioned from the corner, animated) */}
         <div
           style={{
-            flex: 1,
-            padding: "10px 10px 6px 10px",
-            overflowY: "auto",
-            backgroundColor: "#f3f4f6",
-          }}
-        >
-          {messages.map((msg, idx) => (
-            <div
-              key={idx}
-              style={{
-                display: "flex",
-                justifyContent:
-                  msg.from === "user" ? "flex-end" : "flex-start",
-                marginBottom: 6,
-              }}
-            >
-              <div
-                style={{
-                  maxWidth: "80%",
-                  padding: "8px 10px",
-                  borderRadius: 12,
-                  fontSize: 13,
-                  lineHeight: 1.3,
-                  whiteSpace: "pre-wrap",
-                  backgroundColor:
-                    msg.from === "user" ? accentColor : "white",
-                  color: msg.from === "user" ? "white" : "#111827",
-                  border:
-                    msg.from === "bot"
-                      ? "1px solid rgba(0,0,0,0.05)"
-                      : "none",
-                }}
-              >
-                {msg.text}
-              </div>
-            </div>
-          ))}
-          {loading && (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "flex-start",
-                marginBottom: 6,
-              }}
-            >
-              <div
-                style={{
-                  padding: "8px 10px",
-                  borderRadius: 12,
-                  fontSize: 12,
-                  backgroundColor: "white",
-                  color: "#6b7280",
-                  border: "1px solid rgba(0,0,0,0.05)",
-                }}
-              >
-                Typing…
-              </div>
-            </div>
-          )}
-          <div ref={messagesEndRef} />
-        </div>
-
-        {/* Input */}
-        <div
-          style={{
-            borderTop: "1px solid #e5e7eb",
-            padding: 8,
+            position: "absolute",
+            bottom: 0,
+            right: 0,
+            width: 340,
+            height: 420,
             backgroundColor: "white",
+            borderRadius: 16,
+            boxShadow:
+              "0 10px 25px rgba(0,0,0,0.2), 0 8px 10px rgba(0,0,0,0.15)",
             display: "flex",
-            gap: 6,
-            alignItems: "center",
+            flexDirection: "column",
+            overflow: "hidden",
+            fontFamily:
+              "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+
+            transformOrigin: "bottom right",
+            transform: isOpen ? "scale(1)" : "scale(0.8)",
+            opacity: isOpen ? 1 : 0,
+            pointerEvents: isOpen ? "auto" : "none",
+            transition:
+              "transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 160ms ease-out",
           }}
         >
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Ask a question…"
+          {/* Header */}
+          <div
+            style={{
+              backgroundColor: accentColor,
+              color: "white",
+              padding: "10px 12px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <span style={{ fontSize: 14, fontWeight: 600 }}>{botName}</span>
+              <span style={{ fontSize: 11, opacity: 0.9 }}>
+                Online · Site Navigator Assistant
+              </span>
+            </div>
+            <button
+              onClick={() => setIsOpen(false)}
+              style={{
+                background: "transparent",
+                border: "none",
+                color: "white",
+                fontSize: 18,
+                cursor: "pointer",
+                lineHeight: 1,
+              }}
+              aria-label="Close chat"
+            >
+              ×
+            </button>
+          </div>
+
+          {/* Messages */}
+          <div
             style={{
               flex: 1,
-              fontSize: 13,
-              padding: "8px 10px",
-              borderRadius: 999,
-              border: "1px solid #111",
-              outline: "none",
-              backgroundColor: "#fafafaff",
-              color: "black",
-            }}
-          />
-          <button
-            onClick={handleSend}
-            disabled={loading || !input.trim()}
-            style={{
-              fontSize: 13,
-              padding: "8px 12px",
-              borderRadius: 999,
-              border: "none",
-              backgroundColor:
-                loading || !input.trim() ? "#9ca3af" : accentColor,
-              color: "white",
-              cursor:
-                loading || !input.trim() ? "not-allowed" : "pointer",
-              fontWeight: 500,
+              padding: "10px 10px 6px 10px",
+              overflowY: "auto",
+              backgroundColor: "#f3f4f6",
             }}
           >
-            Send
-          </button>
+            {messages.map((msg, idx) => (
+              <div
+                key={idx}
+                style={{
+                  display: "flex",
+                  justifyContent:
+                    msg.from === "user" ? "flex-end" : "flex-start",
+                  marginBottom: 6,
+                }}
+              >
+                <div
+                  style={{
+                    maxWidth: "80%",
+                    padding: "8px 10px",
+                    borderRadius: 12,
+                    fontSize: 13,
+                    lineHeight: 1.3,
+                    whiteSpace: "pre-wrap",
+                    backgroundColor:
+                      msg.from === "user" ? accentColor : "white",
+                    color: msg.from === "user" ? "white" : "#111827",
+                    border:
+                      msg.from === "bot"
+                        ? "1px solid rgba(0,0,0,0.05)"
+                        : "none",
+                  }}
+                >
+                  {msg.text}
+                </div>
+              </div>
+            ))}
+            {loading && (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  marginBottom: 6,
+                }}
+              >
+                <div
+                  style={{
+                    padding: "8px 10px",
+                    borderRadius: 12,
+                    fontSize: 12,
+                    backgroundColor: "white",
+                    color: "#6b7280",
+                    border: "1px solid rgba(0,0,0,0.05)",
+                  }}
+                >
+                  Typing…
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Input */}
+          <div
+            style={{
+              borderTop: "1px solid #e5e7eb",
+              padding: 8,
+              backgroundColor: "white",
+              display: "flex",
+              gap: 6,
+              alignItems: "center",
+            }}
+          >
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Ask a question…"
+              style={{
+                flex: 1,
+                fontSize: 13,
+                padding: "8px 10px",
+                borderRadius: 999,
+                border: "1px solid #111",
+                outline: "none",
+                backgroundColor: "#fafafaff",
+                color: "black",
+              }}
+            />
+            <button
+              onClick={handleSend}
+              disabled={loading || !input.trim()}
+              style={{
+                fontSize: 13,
+                padding: "8px 12px",
+                borderRadius: 999,
+                border: "none",
+                backgroundColor:
+                  loading || !input.trim() ? "#9ca3af" : accentColor,
+                color: "white",
+                cursor:
+                  loading || !input.trim() ? "not-allowed" : "pointer",
+                fontWeight: 500,
+              }}
+            >
+              Send
+            </button>
+          </div>
         </div>
       </div>
     </div>

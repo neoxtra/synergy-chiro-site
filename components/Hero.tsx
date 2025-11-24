@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function Hero() {
   const fadeUp = {
@@ -9,20 +10,24 @@ export default function Hero() {
     visible: { opacity: 1, y: 0 },
   };
 
-  // ref for the glow element
   const glowRef = useRef<HTMLDivElement | null>(null);
+  const heroRef = useRef<HTMLDivElement | null>(null); // now tracks the blue hero block
 
   useEffect(() => {
-    const el = glowRef.current;
-    if (!el) return;
+    const glow = glowRef.current;
+    const hero = heroRef.current;
+    if (!glow || !hero) return;
 
     const SIZE = 600;
 
     const handleMove = (e: MouseEvent) => {
-      const x = e.clientX - SIZE / 2;
-      const y = e.clientY - SIZE / 2;
+      const rect = hero.getBoundingClientRect();
 
-      el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      // position relative to the BLUE HERO block
+      const x = e.clientX - rect.left - SIZE / 2;
+      const y = e.clientY - rect.top - SIZE / 2;
+
+      glow.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     };
 
     window.addEventListener("mousemove", handleMove);
@@ -30,9 +35,27 @@ export default function Hero() {
   }, []);
 
   return (
-    <>
-      <section className="relative w-full h-screen overflow-hidden bg-[#020617]">
-        {/* cursor-following glow */}
+    // BACKGROUND BEHIND HERO (modifiable)
+    <section className="relative w-full bg-white m-0 p-0 overflow-visible">
+      {/* BLUE HERO BLOCK (rect + triangle) */}
+      <div
+        ref={heroRef}
+        className="
+          relative
+          w-full
+          text-slate-100
+          pb-24
+        "
+        style={{
+          // blue hero rectangle with triangle extension at bottom
+          backgroundColor: "#020617",
+          clipPath: "polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%)",
+          // 0,0 to 100,0 = top edge
+          // 100,75 and 0,75 = flat bottom edge
+          // 50,100 = point of triangle
+        }}
+      >
+        {/* cursor-following glow INSIDE blue hero */}
         <div
           ref={glowRef}
           className="
@@ -50,15 +73,15 @@ export default function Hero() {
           }}
         />
 
-        {/* TEXT OVERLAY */}
-        <div className="relative z-10 flex flex-col justify-center items-center text-center px-6 h-full">
+        {/* HERO TEXT BLOCK */}
+        <div className="relative z-10 flex flex-col justify-center items-center text-center px-6 min-h-[700px]">
           {/* TOP TAGLINE */}
           <motion.span
             variants={fadeUp}
             initial="hidden"
             animate="visible"
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-xs md:text-lg tracking-[0.2em] text-red-400 font-bold mb-4"
+            className="text-xs md:text-lg tracking-[0.2em] text-slate-400 font-bold mb-4"
           >
             Efficient Marketing Begins Here
           </motion.span>
@@ -84,7 +107,7 @@ export default function Hero() {
             </span>
             <span className="text-white"> Solutions </span>
             <br />
-            <span className="text-white"> for Small Businesses </span>
+            <span className="text-white"> for Local Businesses </span>
           </motion.h1>
 
           {/* SUBHEADING */}
@@ -96,7 +119,7 @@ export default function Hero() {
             className="md:text-xl text-zinc-100 mt-4 max-w-2xl"
           >
             We provide you the tools needed to turn your design into reality.
-            <br/>
+            <br />
             Make your first impression count.
           </motion.p>
 
@@ -142,23 +165,19 @@ export default function Hero() {
             <span className="relative z-10">Get Started</span>
           </motion.button>
         </div>
-      </section>
 
-      {/* SECTION BELOW HERO (unchanged, you can tweak later) */}
-      <section className="w-full bg-zinc-100">
-        <div className="mx-auto max-w-6xl px-8 py-20">
-          <h2 className="text-4xl font-bold text-zinc-900 mb-6">
-            Your Path to Better Spine Health
-          </h2>
-          <p className="text-lg text-zinc-600 max-w-2xl mb-10">
-            Personalized chiropractic care to help you move, heal, and feel your
-            best.
-          </p>
-          <button className="inline-flex items-center justify-center rounded-md bg-black px-8 py-3 text-base font-medium text-white transition hover:bg-zinc-800">
-            Book Appointment
-          </button>
+        {/* IMAGE UNDER HERO TEXT, STILL INSIDE BLUE SHAPE */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto mt-0 pb-10 flex justify-center">
+          <Image
+            src="/jerry.png"
+            alt="Solutions"
+            width={1880}
+            height={1330}
+            className="w-full h-auto object-contain"
+            priority
+          />
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

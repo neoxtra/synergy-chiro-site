@@ -4,11 +4,10 @@ import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 
-// Load Inter font from Google Fonts
+// Load Inter font
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"], // choose any weights you want
-  variable: "--font-inter",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -23,8 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* Apply Inter font to entire website */}
-      <body className={`${inter.variable} antialiased`}>
+      <body className={`${inter.className} antialiased bg-[#020617]`}>
         <Navbar />
         {children}
       </body>

@@ -1,17 +1,23 @@
 import Hero from "@/components/Hero";
 import FloatingChatbot from "@/components/FloatingChatbot";
 import CursorSpotlight from "@/components/CursorSpotlight";
+import Summary1 from "@/components/Summary1";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-hidden text-slate-100">
-      {/* Background + glow */}
-      <CursorSpotlight />
+    <main className="relative min-h-screen bg-white text-slate-100 overflow-hidden">
+      {/* Global cursor glow (optional – you can comment this out if you only want the glow in Hero) */}
+      {/* <CursorSpotlight /> */}
 
       {/* Foreground content */}
       <div className="relative z-10">
+        {/* HERO with blue background + triangle */}
         <Hero />
 
+        {/* SUMMARY SECTION (white background, two columns) */}
+        <Summary1 />
+
+        {/* FLOATING CHATBOT */}
         <FloatingChatbot
           botName="NeoTek Site Navigator"
           welcomeMessage="Hi! I’m the integrated AI assistant here to showcase the full capabilities of NeoTek Design Studios."
