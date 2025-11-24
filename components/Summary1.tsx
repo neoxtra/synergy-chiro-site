@@ -7,7 +7,7 @@ export default function Summary1() {
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
         {/* TOP LABEL */}
         <p className="text-center text-xs md:text-sm tracking-[0.25em] font-semibold text-slate-600 mb-12 uppercase">
-          A NEW YORK–BASED DIGITAL MARKETING AGENCY
+          A NEW YORK–BASED DIGITAL MARKETING STUDIO
         </p>
 
         {/* TWO-COLUMN CONTENT */}
@@ -15,7 +15,7 @@ export default function Summary1() {
           {/* LEFT COLUMN – BIG RED HEADLINE + SHORT BODY */}
           <div>
             <h2 className="text-3xl md:text-5xl leading-tight font-semibold text-[#e63934] mb-6">
-              We Built The Agency We Wish Existed.
+              We Built The Studio We Wish Existed.
             </h2>
 
             <p className="text-base md:text-lg text-slate-800 leading-relaxed">

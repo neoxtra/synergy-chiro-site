@@ -69,7 +69,10 @@ export default function FloatingChatbot({
       console.error(err);
       setMessages((prev) => [
         ...prev,
-        { from: "bot", text: "Sorry, something went wrong. Please try again." },
+        {
+          from: "bot",
+          text: "Sorry, something went wrong. Please try again.",
+        },
       ]);
     } finally {
       setLoading(false);
@@ -89,13 +92,13 @@ export default function FloatingChatbot({
         position: "fixed",
         zIndex: 9999,
         ...containerPositionStyle,
-        pointerEvents: "none", // wrapper ignores clicks
+        pointerEvents: "none",
       }}
     >
       <div
         style={{
           position: "relative",
-          pointerEvents: "auto", // actual content is clickable
+          pointerEvents: "auto",
         }}
       >
         {/* Floating bubble button (only when closed) */}
@@ -107,7 +110,7 @@ export default function FloatingChatbot({
               height: 56,
               borderRadius: "999px",
               border: "none",
-              backgroundColor: accentColor,
+              backgroundColor: "#2c2323", // dark circle like screenshot
               color: "white",
               cursor: "pointer",
               boxShadow:
@@ -116,7 +119,9 @@ export default function FloatingChatbot({
               alignItems: "center",
               justifyContent: "center",
               padding: 0,
-              transition: "transform 160ms ease-out, box-shadow 160ms ease-out",
+              transition:
+                "transform 160ms ease-out, box-shadow 160ms ease-out, background-color 160ms ease-out",
+              position: "relative", // so the green dot can be absolutely positioned
             }}
             aria-label="Open chat"
             onMouseEnter={(e) => {
@@ -128,30 +133,39 @@ export default function FloatingChatbot({
                 "translateY(0) scale(1)";
             }}
           >
-            {/* Chat bubble icon */}
+            {/* main white chat bubble icon */}
             <svg
-              width="26"
-              height="26"
+              width="40"
+              height="50"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
             >
+              {/* rounded square bubble */}
               <path
-                d="M5 5.5C5 4.67157 5.67157 4 6.5 4H17.5C18.3284 4 19 4.67157 19 5.5V12.5C19 13.3284 18.3284 14 17.5 14H10L7 17V14H6.5C5.67157 14 5 13.3284 5 12.5V5.5Z"
-                stroke="white"
-                strokeWidth="1.7"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                d="M6 6C6 5.17157 6.67157 4.5 7.5 4.5H16.5C17.3284 4.5 18 5.17157 18 6V12C18 12.8284 17.3284 13.5 16.5 13.5H11L8.4 15.9C8.12337 16.1685 7.67663 16.1685 7.4 15.9C7.27736 15.7809 7.2 15.6166 7.2 15.4444V13.5H7.5C6.67157 13.5 6 12.8284 6 12V6Z"
+                fill="white"
               />
-              <circle cx="9" cy="9" r="0.9" fill="white" />
-              <circle cx="12" cy="9" r="0.9" fill="white" />
-              <circle cx="15" cy="9" r="0.9" fill="white" />
             </svg>
+
+            {/* green online dot */}
+            <span
+              style={{
+                position: "absolute",
+                top: 4,
+                right: 4,
+                width: 14,
+                height: 14,
+                borderRadius: "999px",
+                backgroundColor: "#22c55e", // green
+                border: "2px solid #2c2323", // outline to separate from circle
+              }}
+            />
           </button>
         )}
 
-        {/* Chat window (absolutely positioned from the corner, animated) */}
+        {/* Chat window */}
         <div
           style={{
             position: "absolute",
@@ -168,7 +182,6 @@ export default function FloatingChatbot({
             overflow: "hidden",
             fontFamily:
               "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
-
             transformOrigin: "bottom right",
             transform: isOpen ? "scale(1)" : "scale(0.8)",
             opacity: isOpen ? 1 : 0,

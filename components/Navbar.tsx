@@ -12,6 +12,7 @@ const roboto = Roboto({
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +20,15 @@ export default function Navbar() {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // close mobile menu when resizing to desktop
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth >= 768) setMobileOpen(false);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, []);
 
   return (
@@ -29,13 +39,13 @@ export default function Navbar() {
         transition-all duration-300
         ${
           scrolled
-            ? "bg-zinc-900/70 backdrop-blur-md shadow-lg h-36"
-            : "bg-transparent h-40"
+            ? "bg-zinc-900/70 backdrop-blur-md shadow-lg h-20"
+            : "bg-transparent h-24"
         }
       `}
     >
-      <div className="max-w-7xl mx-auto px-8 py-4 h-full flex items-center justify-between">
-        {/* LOGO */}
+      <div className="max-w-7xl mx-auto px-6 md:px-8 h-full flex items-center justify-between">
+        {/* LOGO (left on all sizes) */}
         <Link href="/" className="flex items-center">
           <Image
             src="/logo1.png"
@@ -43,15 +53,20 @@ export default function Navbar() {
             width={250}
             height={100}
             className={`
-              object-contain
-              transition-all duration-300 ease-in-out
-              ${scrolled ? "w-[190px]" : "w-[250px]"}
-            `}
+            object-contain
+            transition-all duration-300 ease-in-out
+
+            w-[120px]          /* mobile */
+
+            md:w-[250px]       /* desktop */
+            md:scrolled:w-[190px]
+          `}
+
             priority
           />
         </Link>
 
-        {/* MENU */}
+        {/* DESKTOP MENU */}
         <div className="hidden md:flex space-x-10 font-medium text-white text-lg">
           {/* ABOUT + SUBMENU */}
           <div className="relative group">
@@ -80,7 +95,6 @@ export default function Navbar() {
                 rounded-md
               "
             >
-              {/* ITEM 1 */}
               <Link
                 href="/about/test-1"
                 className="
@@ -89,7 +103,6 @@ export default function Navbar() {
                   overflow-hidden text-white font-medium
                 "
               >
-                {/* sliding background */}
                 <span
                   className="
                     absolute inset-0 bg-red-600
@@ -98,13 +111,11 @@ export default function Navbar() {
                     transition-transform duration-300
                   "
                 />
-                {/* text */}
                 <span className="relative z-10 group-hover/item:scale-105 transition-transform duration-300">
-                  Methodolgy
+                  Methodology
                 </span>
               </Link>
 
-              {/* ITEM 2 */}
               <Link
                 href="/about/test-2"
                 className="
@@ -137,7 +148,6 @@ export default function Navbar() {
               SERVICES
             </Link>
 
-            {/* DROPDOWN */}
             <div
               className="
                 invisible opacity-0
@@ -149,7 +159,6 @@ export default function Navbar() {
                 rounded-md
               "
             >
-              {/* ITEM 1 */}
               <Link
                 href="/services/website-design"
                 className="
@@ -171,7 +180,6 @@ export default function Navbar() {
                 </span>
               </Link>
 
-              {/* ITEM 2 */}
               <Link
                 href="/services/SEO"
                 className="
@@ -195,7 +203,6 @@ export default function Navbar() {
             </div>
           </div>
 
-          
           <Link
             href="/Portfolio"
             className="transform transition-all duration-200 hover:text-red-500 hover:scale-110"
@@ -210,7 +217,6 @@ export default function Navbar() {
             CONTACT
           </Link>
 
-
           <Link
             href="/resources"
             className="transform transition-all duration-200 hover:text-red-500 hover:scale-110"
@@ -218,7 +224,114 @@ export default function Navbar() {
             RESOURCES
           </Link>
         </div>
+
+        {/* MOBILE HAMBURGER (right side) */}
+        <button
+          type="button"
+          className="md:hidden inline-flex items-center justify-center p-2 rounded-full text-white hover:bg-zinc-800 transition"
+          aria-label="Toggle navigation"
+          onClick={() => setMobileOpen((prev) => !prev)}
+        >
+          {/* simple hamburger icon / X icon */}
+          <span className="sr-only">Open main menu</span>
+          <div className="space-y-1">
+            <span
+              className={`block h-[2px] w-6 bg-white transition-transform ${
+                mobileOpen ? "translate-y-[5px] rotate-45" : ""
+              }`}
+            />
+            <span
+              className={`block h-[2px] w-6 bg-white transition-opacity ${
+                mobileOpen ? "opacity-0" : "opacity-100"
+              }`}
+            />
+            <span
+              className={`block h-[2px] w-6 bg-white transition-transform ${
+                mobileOpen ? "-translate-y-[5px] -rotate-45" : ""
+              }`}
+            />
+          </div>
+        </button>
       </div>
+
+      {/* MOBILE MENU DROPDOWN */}
+      {mobileOpen && (
+        <div className="md:hidden bg-zinc-900/95 border-t border-zinc-800">
+          <div className="max-w-7xl mx-auto px-6 pt-4 pb-6 space-y-3 text-white text-base">
+            <Link
+              href="/about"
+              className="block py-1 font-semibold"
+              onClick={() => setMobileOpen(false)}
+            >
+              ABOUT
+            </Link>
+            <div className="pl-3 space-y-1 text-sm text-zinc-300">
+              <Link
+                href="/about/test-1"
+                className="block py-1"
+                onClick={() => setMobileOpen(false)}
+              >
+                Methodology
+              </Link>
+              <Link
+                href="/about/test-2"
+                className="block py-1"
+                onClick={() => setMobileOpen(false)}
+              >
+                Testimonials
+              </Link>
+            </div>
+
+            <Link
+              href="/services"
+              className="block pt-3 pb-1 font-semibold"
+              onClick={() => setMobileOpen(false)}
+            >
+              SERVICES
+            </Link>
+            <div className="pl-3 space-y-1 text-sm text-zinc-300">
+              <Link
+                href="/services/website-design"
+                className="block py-1"
+                onClick={() => setMobileOpen(false)}
+              >
+                Website Design
+              </Link>
+              <Link
+                href="/services/SEO"
+                className="block py-1"
+                onClick={() => setMobileOpen(false)}
+              >
+                SEO
+              </Link>
+            </div>
+
+            <Link
+              href="/Portfolio"
+              className="block pt-3 pb-1 font-semibold"
+              onClick={() => setMobileOpen(false)}
+            >
+              PORTFOLIO
+            </Link>
+
+            <Link
+              href="/contact"
+              className="block py-1 font-semibold"
+              onClick={() => setMobileOpen(false)}
+            >
+              CONTACT
+            </Link>
+
+            <Link
+              href="/resources"
+              className="block py-1 font-semibold"
+              onClick={() => setMobileOpen(false)}
+            >
+              RESOURCES
+            </Link>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
