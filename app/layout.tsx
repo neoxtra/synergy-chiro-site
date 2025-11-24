@@ -11,7 +11,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "NeoTek AI Assistant",
+  title: "NeoTek Designs",
   description: "Website with integrated AI front desk assistant.",
 };
 
