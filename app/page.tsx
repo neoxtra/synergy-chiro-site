@@ -23,7 +23,7 @@ export default function Home() {
         {/* FLOATING CHATBOT */}
         <FloatingChatbot
           botName="NeoTek Site Navigator"
-          welcomeMessage="Hi! I’m the integrated AI assistant here to showcase the full capabilities of NeoTek Design Studios."
+          welcomeMessage="Hi! I’m the integrated AI assistant to showcase the full capabilities of NeoTek Design Studios."
           accentColor="#197e04ff"
           position="bottom-right"
         />
